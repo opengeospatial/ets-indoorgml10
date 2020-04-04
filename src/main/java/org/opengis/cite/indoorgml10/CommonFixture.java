@@ -4,6 +4,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import java.net.URI;
+import java.net.URL;
 import java.util.Map;
 import javax.ws.rs.core.MediaType;
 import org.opengis.cite.indoorgml10.util.ClientUtils;
@@ -11,6 +12,7 @@ import org.testng.ITestContext;
 import org.testng.SkipException;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.xml.XmlSuite;
 import org.w3c.dom.Document;
 
 /**
@@ -36,6 +38,32 @@ public class CommonFixture {
      */
     protected ClientResponse response;
 
+    
+	protected URL indoorGMLFile;
+
+	/**
+	 * Obtains the test subject from the ISuite context. The suite attribute
+	 * {@link org.opengis.cite.indoorgml10.SuiteAttribute#TEST_SUBJECT} should
+	 * evaluate to a DOM Document node.
+	 * 
+	 * @param testContext The test (group) context.
+	 */
+	@BeforeClass
+	public void obtainTestSubject(ITestContext testContext) {
+
+		XmlSuite suite = testContext.getSuite().getXmlSuite();
+
+		Map<String, String> map = suite.getAllParameters();
+		
+		try {
+		   this.indoorGMLFile = new URL(map.get("iut"));
+		}
+        catch(Exception ex){
+			throw new SkipException("Failed to retrieve iut at obtainTestSubject " + ex.getMessage());
+		}
+		
+
+	}    
     /**
      * Initializes the common test fixture with a client component for 
      * interacting with HTTP endpoints.
