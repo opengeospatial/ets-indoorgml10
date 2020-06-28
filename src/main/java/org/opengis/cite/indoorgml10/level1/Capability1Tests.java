@@ -34,7 +34,7 @@ import javax.xml.validation.Validator;
 public class Capability1Tests extends CommonFixture {
 
 	private Document testSubject;
-	boolean skipOthers = true;
+	boolean skipOthers = false;  //this is just for development, it will be removed at Beta stage
 
 
 	/**
@@ -108,7 +108,41 @@ public class Capability1Tests extends CommonFixture {
 	@Test(description = "OGC 14-005r5, A.1.2")
 	public void validateConformanceClassesRelatedToIndoorGMLModules() throws SAXException, IOException{
 
-		throw new SkipException("not yet implemented");		
+		if(skipOthers)throw new SkipException("not yet implemented");	
+		
+		StreamSource[] schemaDocuments = new StreamSource[1];
+		schemaDocuments[0] = new StreamSource(
+				new URL("http://schemas.opengis.net/indoorgml/1.0/indoorgmlnavi.xsd").openStream());
+		
+		Source instanceDocument = new StreamSource(indoorGMLFile.openStream());
+
+		SchemaFactory sf = null;
+		Schema s = null;
+		boolean schemaValid = false;
+
+		try {
+			System.out.println("Starting validateConformanceClassesRelatedToIndoorGMLModules");
+			sf = SchemaFactory.newInstance("http://www.w3.org/XML/XMLSchema/v1.0");
+			
+			s = sf.newSchema(schemaDocuments);
+			
+		
+
+			Validator v = s.newValidator();
+			v.validate(instanceDocument);
+			schemaValid = true;
+			System.out.println("Completed validateConformanceClassesRelatedToIndoorGMLModules");
+		} catch (IllegalArgumentException iae) {
+			System.out.println(iae.getMessage());
+			schemaValid = false;
+
+		} catch (Exception ee) {
+			System.out.println(ee.getMessage());
+			schemaValid = false;
+
+		}
+
+		Assert.assertTrue(schemaValid, ErrorMessage.format(ErrorMessageKeys.NOT_SCHEMA_VALID));	
 		
 	}
 
