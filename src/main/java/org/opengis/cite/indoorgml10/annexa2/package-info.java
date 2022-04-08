@@ -10,4 +10,4 @@
  * href="http://www.w3.org/TR/html5/infrastructure.html#conformance-classes">HTML5
  * - Conformance classes</a>
  */
-package org.opengis.cite.indoorgml10.level2;
+package org.opengis.cite.indoorgml10.annexa2;

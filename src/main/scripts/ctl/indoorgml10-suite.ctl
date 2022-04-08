@@ -36,8 +36,8 @@
                </ul>
                <p>Two conformance levels are defined:</p>
                <ul>
-                 <li>Level 1</li>
-                 <li>Level 2</li>
+                 <li>Annex A.1 Test Cases for mandatory conformance requirements</li>
+                 <li>Annex A.2 Conformance classes related to IndoorGML Modules</li>
                </ul>
              </div>
              <fieldset style="background:#ccffff">
@@ -55,13 +55,6 @@
                    <h4 style="margin-bottom: 0.5em">Upload IUT</h4>
                  </label>
                  <input name="doc" id="doc" size="128" type="file" />
-               </p>
-               <p>
-                 <label for="level">Conformance class: </label>
-                 <input id="level-1" type="radio" name="level" value="1" checked="checked" />
-                 <label for="level-1"> Level 1 | </label>
-                 <input id="level-2" type="radio" name="level" value="2" />
-                 <label class="form-label" for="level-2"> Level 2</label>
                </p>
              </fieldset>
              <p>

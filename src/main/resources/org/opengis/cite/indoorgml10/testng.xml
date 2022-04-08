@@ -10,13 +10,14 @@
     <listener class-name="org.opengis.cite.indoorgml10.TestFailureListener" />
   </listeners>
 
-  <test name="Conformance Level 1">
+  <test name="AnnexA1">
     <packages>
-      <package name="org.opengis.cite.indoorgml10.level1" />
+      <package name="org.opengis.cite.indoorgml10.annexa1" />
     </packages>
-    <classes>
-      <class name="org.opengis.cite.indoorgml10.SuitePreconditions" />
-    </classes>
   </test>
-  <!-- Add test sets for other conformance classes/levels -->
+  <test name="AnnexA2">
+    <packages>
+      <package name="org.opengis.cite.indoorgml10.annexa2" />
+    </packages>
+  </test>
 </suite>

@@ -1,4 +1,4 @@
-package org.opengis.cite.indoorgml10.level2;
+package org.opengis.cite.indoorgml10.annexa2;
 
 import java.io.IOException;
 import java.net.MalformedURLException;

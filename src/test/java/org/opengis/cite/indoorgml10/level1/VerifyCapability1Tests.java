@@ -6,6 +6,8 @@ import javax.xml.parsers.DocumentBuilderFactory;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+import org.opengis.cite.indoorgml10.annexa1.Capability1Tests;
+
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import org.testng.ISuite;

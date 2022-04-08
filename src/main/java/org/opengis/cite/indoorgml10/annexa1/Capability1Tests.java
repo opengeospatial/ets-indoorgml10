@@ -1,4 +1,4 @@
-package org.opengis.cite.indoorgml10.level1;
+package org.opengis.cite.indoorgml10.annexa1;
 
 import java.io.File;
 import java.io.IOException;
