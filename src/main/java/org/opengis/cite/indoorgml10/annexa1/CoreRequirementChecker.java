@@ -27,7 +27,7 @@ import com.vividsolutions.jts.geom.LinearRing;
 import com.vividsolutions.jts.geom.Polygon;
 import com.vividsolutions.jts.io.WKTReader;
 
-public class RequirementChecker {
+public class CoreRequirementChecker {
 
 	public boolean checkRequirement1(URL fileURL) throws Exception {
 

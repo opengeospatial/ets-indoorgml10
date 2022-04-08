@@ -2,9 +2,13 @@ package org.opengis.cite.indoorgml10.annexa1;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.Source;
 import javax.xml.transform.dom.DOMSource;
 import org.opengis.cite.indoorgml10.CommonFixture;
@@ -21,6 +25,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.xml.XmlSuite;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 import org.xml.sax.SAXException;
 
 import javax.xml.transform.stream.StreamSource;
@@ -34,7 +39,7 @@ import javax.xml.validation.Validator;
 public class Capability1Tests extends CommonFixture {
 
 	private Document testSubject;
-	boolean skipOthers = false;  //this is just for development, it will be removed at Beta stage
+	
 
 
 	/**
@@ -55,12 +60,27 @@ public class Capability1Tests extends CommonFixture {
 	 * IndoorGML instance document
 	 * 
 	 * @throws SAXException If the resource cannot be parsed.
-	 * @throws IOException  If the resource is not accessible. *
+	 * @throws IOException  If the resource is not accessible. 
+	 * @throws ParserConfigurationException If the resource cannot be parsed.
 	 */
 	@Test(description = "OGC 14-005r5, A.1.1")
-	public void verifyValidIndoorGMLInstanceDocument() throws SAXException, IOException {
+	public void verifyValidIndoorGMLInstanceDocument() throws SAXException, IOException, ParserConfigurationException {
 
-		if(skipOthers)throw new SkipException("not yet implemented");	
+		
+		
+		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+        DocumentBuilder db;
+	    db = dbf.newDocumentBuilder();	          
+        Document document = db.parse(indoorGMLFile.openStream());
+        Element root = document.getDocumentElement();
+		
+		
+		if(!root.getNodeName().equals("IndoorFeatures"))
+		{
+			Assert.assertTrue(root.getNodeName().equals("IndoorFeatures"), ErrorMessage.format(ErrorMessageKeys.MISSING_CORRECT_ROOT_ELEMENT));
+		}
+		
+		//====validate
 		
 		StreamSource[] schemaDocuments = new StreamSource[1];
 		schemaDocuments[0] = new StreamSource(
@@ -73,7 +93,7 @@ public class Capability1Tests extends CommonFixture {
 		boolean schemaValid = false;
 
 		try {
-			System.out.println("Starting verifyValidIndoorGMLInstanceDocument");
+		
 			sf = SchemaFactory.newInstance("http://www.w3.org/XML/XMLSchema/v1.0");
 			
 			s = sf.newSchema(schemaDocuments);
@@ -83,7 +103,7 @@ public class Capability1Tests extends CommonFixture {
 			Validator v = s.newValidator();
 			v.validate(instanceDocument);
 			schemaValid = true;
-			System.out.println("Completed verifyValidIndoorGMLInstanceDocument");
+		
 		} catch (IllegalArgumentException iae) {
 			System.out.println(iae.getMessage());
 			schemaValid = false;
@@ -108,7 +128,7 @@ public class Capability1Tests extends CommonFixture {
 	@Test(description = "OGC 14-005r5, A.1.2")
 	public void validateConformanceClassesRelatedToIndoorGMLModules() throws SAXException, IOException{
 
-		if(skipOthers)throw new SkipException("not yet implemented");	
+		
 		
 		StreamSource[] schemaDocuments = new StreamSource[1];
 		schemaDocuments[0] = new StreamSource(
@@ -121,7 +141,7 @@ public class Capability1Tests extends CommonFixture {
 		boolean schemaValid = false;
 
 		try {
-			System.out.println("Starting validateConformanceClassesRelatedToIndoorGMLModules");
+		
 			sf = SchemaFactory.newInstance("http://www.w3.org/XML/XMLSchema/v1.0");
 			
 			s = sf.newSchema(schemaDocuments);
@@ -131,7 +151,7 @@ public class Capability1Tests extends CommonFixture {
 			Validator v = s.newValidator();
 			v.validate(instanceDocument);
 			schemaValid = true;
-			System.out.println("Completed validateConformanceClassesRelatedToIndoorGMLModules");
+	
 		} catch (IllegalArgumentException iae) {
 			System.out.println(iae.getMessage());
 			schemaValid = false;
@@ -160,11 +180,11 @@ public class Capability1Tests extends CommonFixture {
 	@Test(description = "OGC 14-005r5, A.1.3 - Requirement 1")
 	public void verifySpatialGeometryObjectsRequirement1() {
 		
-		if(skipOthers)throw new SkipException("not yet implemented");
+	
 		
 		boolean eachCellSpaceSolidHasSurfaceGeometry = false;
 		
-		RequirementChecker rc = new RequirementChecker();
+		CoreRequirementChecker rc = new CoreRequirementChecker();
 		try {
 			eachCellSpaceSolidHasSurfaceGeometry = rc.checkRequirement1(indoorGMLFile);
 			
@@ -184,11 +204,11 @@ public class Capability1Tests extends CommonFixture {
 	@Test(description = "OGC 14-005r5, A.1.3 - Requirement 2")
 	public void verifySpatialGeometryObjectsRequirement2() {
 		
-		if(skipOthers)throw new SkipException("not yet implemented");
+	
 		
 		boolean foundOverlapsBetweenCellSpacesOfSameSpaceLayer = false;
 		
-		RequirementChecker rc = new RequirementChecker();
+		CoreRequirementChecker rc = new CoreRequirementChecker();
 		try {
 			foundOverlapsBetweenCellSpacesOfSameSpaceLayer = rc.checkRequirement2(indoorGMLFile);
 			
