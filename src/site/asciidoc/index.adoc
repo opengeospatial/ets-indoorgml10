@@ -3,39 +3,36 @@
 == Scope
 
 This executable test suite (ETS) verifies the conformance of the implementation
-under test (IUT) with respect to the set of relevant specifications depicted in
-Figure 1. Conformance testing is a kind of "black box" testing that examines the
+under test (IUT) with respect to the OGC Indoor GML 1.0 standard. Conformance testing is a kind of "black box" testing that examines the
 externally visible characteristics or behaviors of the IUT while disregarding
 any implementation details.
 
-.Relevant specifications
-[caption="Figure 1: "]
-image::img/specifications.png[]
+The test suite verifies implementations for conformance against the following specification(s):
+
+- http://docs.opengeospatial.org/is/14-005r5/14-005r5.html[OGC® IndoorGML 1.0.3 (14-005r5)] 
+
+Annex A of the specification provides the Abstract Test Suite, detailing the following conformance classes:
+
+A.1 Test Cases for mandatory conformance requirements
+
+- A.1.1 Valid IndoorGML instance document
+- A.1.2 Conformance classes related to IndoorGML modules
+- A.1.3 Spatial geometry objects
 
 
+A.2 Conformance classes related to IndoorGML Modules
 
-Several conformance classes are defined in the principal specifications; the ones
-listed below are covered by this test suite:
-
-* Class A
-   - List capabilities of conformance class A
-* Class B
-    - List capabilities of conformance class B
+- A.2.1 IndoorGML Core Module
+- A.2.2 IndoorGML Indoor Navigation Module
 
 == Test requirements
 
 The documents listed below stipulate requirements that must be satisfied by a 
 conforming implementation.
 
-1. http://www.w3.org/TR/WCAG20/[Web Content Accessibility Guidelines (WCAG) 2.0]
-2. http://www.w3.org/TR/xml/[Extensible Markup Language (XML) 1.0, Fifth Edition]
-3. https://tools.ietf.org/html/rfc7231)[RFC 7231] - Hypertext Transfer Protocol (HTTP/1.1): Semantics and Content
+1. http://docs.opengeospatial.org/is/14-005r5/14-005r5.html[OGC® IndoorGML 1.0.3 (14-005r5)] 
 
-If any of the following preconditions are not satisfied then all tests in the
-suite will be marked as skipped.
 
-1. Precondition 1
-2. Precondition 2
 
 == Test suite structure
 
@@ -50,10 +47,10 @@ The general structure of the test suite is shown in Table 1.
 |Conformance class
 |Test classes
 
-|Conformance Level 1
+|Annex A.1 Test Cases for mandatory conformance requirements
 |org.opengis.cite.indoorgml10.level1.*
 
-|Conformance Level 2
+|Annex A.2 Conformance classes related to IndoorGML Modules
 |org.opengis.cite.indoorgml10.level2.*
 
 |===

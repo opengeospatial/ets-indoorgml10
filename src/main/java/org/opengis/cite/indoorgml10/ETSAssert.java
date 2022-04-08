@@ -124,34 +124,7 @@ public class ETSAssert {
                 errHandler.toString()));
     }
 
-    /**
-     * Asserts that an XML resource satisfies all applicable constraints
-     * specified in a Schematron (ISO 19757-3) schema. The "xslt2" query
-     * language binding is supported. All patterns are checked.
-     * 
-     * @param schemaRef
-     *            A URL that denotes the location of a Schematron schema.
-     * @param xmlSource
-     *            The XML Source to be validated.
-     */
-    public static void assertSchematronValid(URL schemaRef, Source xmlSource) {
-        SchematronValidator validator;
-        try {
-            validator = new SchematronValidator(new StreamSource(
-                    schemaRef.toString()), "#ALL");
-        } catch (Exception e) {
-            StringBuilder msg = new StringBuilder(
-                    "Failed to process Schematron schema at ");
-            msg.append(schemaRef).append('\n');
-            msg.append(e.getMessage());
-            throw new AssertionError(msg);
-        }
-        DOMResult result = validator.validate(xmlSource);
-        Assert.assertFalse(validator.ruleViolationsDetected(), ErrorMessage
-                .format(ErrorMessageKeys.NOT_SCHEMA_VALID,
-                        validator.getRuleViolationCount(),
-                        XMLUtils.writeNodeToString(result.getNode())));
-    }
+
 
     /**
      * Asserts that the given XML entity contains the expected number of

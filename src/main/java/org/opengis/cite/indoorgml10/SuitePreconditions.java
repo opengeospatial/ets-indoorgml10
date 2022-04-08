@@ -24,7 +24,7 @@ public class SuitePreconditions {
     @BeforeSuite
     @SuppressWarnings("rawtypes")
     public void verifyTestSubject(ITestContext testContext) {
-        SuiteAttribute testFileAttr = SuiteAttribute.TEST_SUBJ_FILE;
+        SuiteAttribute testFileAttr = SuiteAttribute.TEST_SUBJECT;
         Object sutObj = testContext.getSuite().getAttribute(testFileAttr.getName());
         Class expectedType = testFileAttr.getType();
         if (null != sutObj && expectedType.isInstance(sutObj)) {

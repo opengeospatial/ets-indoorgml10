@@ -26,11 +26,11 @@ public class Capability2Tests extends CommonFixture {
 	/**
      * Run conformance level 2 tests only if the preconditions are satisfied.
      */
-    @BeforeTest
+    /*@BeforeTest
     public void checkPreconditions() {
         Assert.assertTrue(2 > 1,
                 "Preconditions for Conformance Level 2 were not satisfied.");
-    }
+    }*/
 
     /**
      * Verify that the IndoorGML instance document follows the IndoorGML Core module’s rules for encoding of 
