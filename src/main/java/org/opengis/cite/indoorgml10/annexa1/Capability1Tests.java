@@ -6,6 +6,7 @@ import java.io.InputStream;
 import java.net.URL;
 import java.util.Map;
 
+import javax.xml.XMLConstants;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -34,7 +35,7 @@ import javax.xml.validation.SchemaFactory;
 import javax.xml.validation.Validator;
 
 /**
- * Includes various tests of capability 1.
+ * Includes various tests of Annex A.1.
  */
 public class Capability1Tests extends CommonFixture {
 
@@ -74,10 +75,11 @@ public class Capability1Tests extends CommonFixture {
         Document document = db.parse(indoorGMLFile.openStream());
         Element root = document.getDocumentElement();
 		
+       
 		
-		if(!root.getNodeName().equals("IndoorFeatures"))
+		if(!root.getNodeName().endsWith("IndoorFeatures"))
 		{
-			Assert.assertTrue(root.getNodeName().equals("IndoorFeatures"), ErrorMessage.format(ErrorMessageKeys.MISSING_CORRECT_ROOT_ELEMENT));
+			Assert.assertTrue(root.getNodeName().endsWith("IndoorFeatures"), ErrorMessageKeys.MISSING_CORRECT_ROOT_ELEMENT);
 		}
 		
 		//====validate
@@ -91,10 +93,12 @@ public class Capability1Tests extends CommonFixture {
 		SchemaFactory sf = null;
 		Schema s = null;
 		boolean schemaValid = false;
+		
+		StringBuffer validationErrorMessage = new StringBuffer();
 
 		try {
 		
-			sf = SchemaFactory.newInstance("http://www.w3.org/XML/XMLSchema/v1.0");
+			sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 			
 			s = sf.newSchema(schemaDocuments);
 			
@@ -105,16 +109,18 @@ public class Capability1Tests extends CommonFixture {
 			schemaValid = true;
 		
 		} catch (IllegalArgumentException iae) {
-			System.out.println(iae.getMessage());
+			
 			schemaValid = false;
+			validationErrorMessage.append(". "+ iae.getMessage()+"\n");
 
 		} catch (Exception ee) {
-			System.out.println(ee.getMessage());
+		
 			schemaValid = false;
+			validationErrorMessage.append(". "+ ee.getMessage()+"\n");
 
 		}
 
-		Assert.assertTrue(schemaValid, ErrorMessage.format(ErrorMessageKeys.NOT_SCHEMA_VALID));
+		Assert.assertTrue(schemaValid, validationErrorMessage.toString());
 	}
 
 	/**
@@ -124,6 +130,10 @@ public class Capability1Tests extends CommonFixture {
 	 * all relevant definitions from the respective XML Schema specification of the
 	 * employed IndoorGML modules A.1.2 Conformance classes related to IndoorGML
 	 * modules
+     * @throws org.xml.sax.SAXException
+     *            If something goes wrong with parsing the document
+     * @throws java.io.IOException
+     *            If something goes wrong with input
 	 */
 	@Test(description = "OGC 14-005r5, A.1.2")
 	public void validateConformanceClassesRelatedToIndoorGMLModules() throws SAXException, IOException{
@@ -139,10 +149,11 @@ public class Capability1Tests extends CommonFixture {
 		SchemaFactory sf = null;
 		Schema s = null;
 		boolean schemaValid = false;
+		StringBuffer validationErrorMessage = new StringBuffer();
 
 		try {
 		
-			sf = SchemaFactory.newInstance("http://www.w3.org/XML/XMLSchema/v1.0");
+			sf = SchemaFactory.newInstance(XMLConstants.W3C_XML_SCHEMA_NS_URI);
 			
 			s = sf.newSchema(schemaDocuments);
 			
@@ -153,16 +164,18 @@ public class Capability1Tests extends CommonFixture {
 			schemaValid = true;
 	
 		} catch (IllegalArgumentException iae) {
-			System.out.println(iae.getMessage());
+			
 			schemaValid = false;
+			validationErrorMessage.append(". "+ iae.getMessage()+"\n");
 
 		} catch (Exception ee) {
-			System.out.println(ee.getMessage());
+	
 			schemaValid = false;
+			validationErrorMessage.append(". "+ ee.getMessage()+"\n");
 
 		}
 
-		Assert.assertTrue(schemaValid, ErrorMessage.format(ErrorMessageKeys.NOT_SCHEMA_VALID));	
+		Assert.assertTrue(schemaValid, validationErrorMessage.toString());	
 		
 	}
 

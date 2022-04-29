@@ -53,7 +53,7 @@ public class URIUtils {
         docFactory.setExpandEntityReferences(false);
         docFactory.setXIncludeAware(true);
         Document doc = null;
-        try {
+        try { 
             // XInclude processor will not add xml:base attributes
             docFactory.setFeature(FIXUP_BASE_URI, false);
             DocumentBuilder docBuilder = docFactory.newDocumentBuilder();

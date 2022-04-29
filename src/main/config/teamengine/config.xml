@@ -15,7 +15,7 @@
         <description>Describe scope of testing.</description>
       
         <BasicConformanceClasses>
-          <conformanceClass>AnnexA1</conformanceClass>
+          <conformanceClass>Annex A.1 Test Cases for mandatory conformance requirements</conformanceClass>
         </BasicConformanceClasses>
         
       </suite>

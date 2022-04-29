@@ -32,12 +32,17 @@
              <div style="background:#F0F8FF" bgcolor="#F0F8FF">
                <p>The implementation under test (IUT) is checked against the following specification:</p>
                <ul>
-                 <li><a href="http://www.w3.org/TR/xml/">OGC® IndoorGML - with Corrigendum</a>, version 1.0.3 (OGC 14-005r5)</li>
+                 <li><a href="http://www.w3.org/TR/xml/">OGC IndoorGML - with Corrigendum</a>, version 1.0.3 (OGC 14-005r5)</li>
                </ul>
                <p>Two conformance levels are defined:</p>
                <ul>
-                 <li>Annex A.1 Test Cases for mandatory conformance requirements</li>
-                 <li>Annex A.2 Conformance classes related to IndoorGML Modules</li>
+                 <li><b>Annex A.1 Test Cases for mandatory conformance requirements</b></li>
+                 <li>A.1.1 Valid IndoorGML instance document</li>
+				 <li>A.1.2 Conformance classes related to IndoorGML modules</li>
+				 <li>A.1.3 Spatial geometry objects</li>
+                 <li><b>Annex A.2 Conformance classes related to IndoorGML Modules</b></li>
+                 <li>A.2.1 IndoorGML Core Module</li>
+				 <li>A.2.2 IndoorGML Indoor Navigation Module</li>                
                </ul>
              </div>
              <fieldset style="background:#ccffff">

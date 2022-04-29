@@ -10,14 +10,19 @@
     <listener class-name="org.opengis.cite.indoorgml10.TestFailureListener" />
   </listeners>
 
-  <test name="AnnexA1">
+  <test name="Annex A.1 Test Cases for mandatory conformance requirements">
     <packages>
       <package name="org.opengis.cite.indoorgml10.annexa1" />
     </packages>
   </test>
-  <test name="AnnexA2">
+  <test name="Annex A.2.1 IndoorGML Core Module">
     <packages>
-      <package name="org.opengis.cite.indoorgml10.annexa2" />
+      <package name="org.opengis.cite.indoorgml10.annexa2_1" />
     </packages>
   </test>
+  <test name="Annex A.2.2 IndoorGML Indoor Navigation Module">
+    <packages>
+      <package name="org.opengis.cite.indoorgml10.annexa2_2" />
+    </packages>
+  </test>  
 </suite>

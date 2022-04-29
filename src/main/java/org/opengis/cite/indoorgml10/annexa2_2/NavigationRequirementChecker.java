@@ -1,4 +1,4 @@
-package org.opengis.cite.indoorgml10.annexa2;
+package org.opengis.cite.indoorgml10.annexa2_2;
 
 import java.net.URL;
 

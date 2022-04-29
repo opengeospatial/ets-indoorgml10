@@ -328,8 +328,7 @@ public class XMLUtils {
     }
 
     /**
-     * Expands character entity (&name;) and numeric references (&#xhhhh; or
-     * &dddd;) that occur within a given string value. It may be necessary to do
+     * Expands character entity and numeric references that occur within a given string value. It may be necessary to do
      * this before processing an XPath expression.
      * 
      * @param value
@@ -338,7 +337,7 @@ public class XMLUtils {
      */
     public static String expandReferencesInText(String value) {
         StringBuilder wrapper = new StringBuilder("<value>");
-        wrapper.append(value).append("</value>");
+        wrapper.append(value).append("</value>"); 
         Reader reader = new StringReader(wrapper.toString());
         String str = null;
         try {

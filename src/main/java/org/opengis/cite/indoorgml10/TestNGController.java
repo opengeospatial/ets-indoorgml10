@@ -128,6 +128,8 @@ public class TestNGController implements TestSuiteController {
      *            pairs).
      * @throws IllegalArgumentException
      *             If any arguments are missing or invalid for some reason.
+     * @throws java.lang.Exception
+     *            If something goes wrong            
      */
     void validateTestRunArgs(Document testRunArgs) throws Exception {
         if (null == testRunArgs

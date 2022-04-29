@@ -34,7 +34,7 @@ public class CoreRequirementChecker {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);
 		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document document = builder.parse(new File(fileURL.toURI()));
+		Document document = builder.parse(fileURL.openStream());		
 		document.getDocumentElement().normalize();
 		Element root = document.getDocumentElement();
 
@@ -68,7 +68,7 @@ public class CoreRequirementChecker {
 		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
 		factory.setNamespaceAware(true);
 		DocumentBuilder builder = factory.newDocumentBuilder();
-		Document document = builder.parse(new File(fileURL.toURI()));
+		Document document = builder.parse(fileURL.openStream());				
 		document.getDocumentElement().normalize();
 		Element root = document.getDocumentElement();
 
