@@ -58,6 +58,7 @@ public class Capability21Tests extends CommonFixture {
     @Test(description = "OGC 14-005r5, A.2.1.1")
     public void verifyIndoorGMLCoreModuleMandatoryConformaceRequirements() throws SAXException, IOException, ParserConfigurationException {
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		dbf.setNamespaceAware(true);
         DocumentBuilder db;
 	    db = dbf.newDocumentBuilder();	          
         Document document = db.parse(indoorGMLFile.openStream());
@@ -69,13 +70,12 @@ public class Capability21Tests extends CommonFixture {
 			Assert.assertTrue(root.getNodeName().endsWith("IndoorFeatures"), ErrorMessageKeys.MISSING_CORRECT_ROOT_ELEMENT);
 		}
 		
-		NodeList primalSpaceFeaturesList = root.getElementsByTagName("primalSpaceFeatures");
-		NodeList multiLayeredGraphList = root.getElementsByTagName("multiLayeredGraph");
+		NodeList primalSpaceFeaturesList = root.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/core","primalSpaceFeatures");
+		NodeList multiLayeredGraphList = root.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/core","multiLayeredGraph");
 
 		
-		if((primalSpaceFeaturesList.getLength()+multiLayeredGraphList.getLength())==0) {
-			Assert.assertTrue((primalSpaceFeaturesList.getLength()+multiLayeredGraphList.getLength())>0, ErrorMessageKeys.MISSING_CONTENT_IN_INDOORFEATURES_ELEMENT);
-		}
+		Assert.assertTrue((primalSpaceFeaturesList.getLength()+multiLayeredGraphList.getLength())>0, ErrorMessageKeys.MISSING_CONTENT_IN_INDOORFEATURES_ELEMENT);
+		
     }
     
     /**
@@ -94,7 +94,7 @@ public class Capability21Tests extends CommonFixture {
     	
     	StreamSource[] schemaDocuments = new StreamSource[1];
 		schemaDocuments[0] = new StreamSource(
-				new URL("http://schemas.opengis.net/indoorgml/1.0/indoorgmlcore.xsd").openStream());
+				new URL("https://schemas.opengis.net/indoorgml/1.0/indoorgmlnavi.xsd").openStream()); //indoorgmlnavi.xsd imports indoorgmlcore.xsd
 		
 		Source instanceDocument = new StreamSource(indoorGMLFile.openStream());
 

@@ -5,8 +5,14 @@ import com.sun.jersey.api.client.ClientRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import java.net.URI;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.ws.rs.core.MediaType;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.stream.StreamSource;
+
 import org.opengis.cite.indoorgml10.util.ClientUtils;
 import org.testng.ITestContext;
 import org.testng.SkipException;
@@ -14,6 +20,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.xml.XmlSuite;
 import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 /**
  * A supporting base class that sets up a common test fixture. These
@@ -127,4 +134,48 @@ public class CommonFixture {
         return ClientUtils.buildGetRequest(endpoint, qryParams, mediaTypes);
     }
 
+    public StreamSource[] getStreamSourceArray(URL indoorGMLFile) throws Exception
+    {
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(indoorGMLFile.openStream());		
+		document.getDocumentElement().normalize();
+		Element root = document.getDocumentElement();
+		String schemaLocation = root.getAttributeNS("http://www.w3.org/2001/XMLSchema-instance", "schemaLocation");
+	
+		String[] tokenizedSchemaLocation = schemaLocation.trim().split(" ");
+		ArrayList<String> tokens = new ArrayList<String>();
+		
+		for(int a=0; a < tokenizedSchemaLocation.length; a++) {
+			if(tokenizedSchemaLocation[a].startsWith("http")) {
+				tokens.add(tokenizedSchemaLocation[a]);
+			}
+			else if(tokenizedSchemaLocation[a].equals("indoorgmlcore.xsd")) {
+				tokens.add("https://schemas.opengis.net/indoorgml/1.0/indoorgmlcore.xsd");
+			}
+			else if(tokenizedSchemaLocation[a].equals("indoorgmlnavi.xsd")) {
+				tokens.add("https://schemas.opengis.net/indoorgml/1.0/indoorgmlnavi.xsd");
+			}			
+		}
+		
+		if(tokens.size()==0) { //if none of the schemas are network accessible, then reference the core and navigation indoorgml schemas only
+			StreamSource[] schemaDocuments = new StreamSource[1];
+			schemaDocuments[0] = new StreamSource(
+					new URL("https://schemas.opengis.net/indoorgml/1.0/indoorgmlnavi.xsd").openStream());
+			return schemaDocuments;
+		}
+		
+		StreamSource[] schemaDocuments = new StreamSource[tokens.size()/2];
+		int j = 0;
+		for(int i=0; i <tokens.size(); i++) {
+			if((i%2)==1) {
+				schemaDocuments[j] = new StreamSource(new URL(tokens.get(i)).openStream());
+				j++;
+			}
+		}
+		
+		return schemaDocuments;
+    }
+    
 }

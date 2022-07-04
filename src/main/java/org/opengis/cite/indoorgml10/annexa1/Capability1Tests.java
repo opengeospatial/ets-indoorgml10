@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.xml.XMLConstants;
@@ -70,6 +71,7 @@ public class Capability1Tests extends CommonFixture {
 		
 		
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
+		dbf.setNamespaceAware(true);
         DocumentBuilder db;
 	    db = dbf.newDocumentBuilder();	          
         Document document = db.parse(indoorGMLFile.openStream());
@@ -86,7 +88,7 @@ public class Capability1Tests extends CommonFixture {
 		
 		StreamSource[] schemaDocuments = new StreamSource[1];
 		schemaDocuments[0] = new StreamSource(
-				new URL("http://schemas.opengis.net/indoorgml/1.0/indoorgmlcore.xsd").openStream());
+				new URL("https://schemas.opengis.net/indoorgml/1.0/indoorgmlnavi.xsd").openStream());  //indoorgmlnavi.xsd imports indoorgmlcore.xsd
 		
 		Source instanceDocument = new StreamSource(indoorGMLFile.openStream());
 
@@ -130,19 +132,14 @@ public class Capability1Tests extends CommonFixture {
 	 * all relevant definitions from the respective XML Schema specification of the
 	 * employed IndoorGML modules A.1.2 Conformance classes related to IndoorGML
 	 * modules
-     * @throws org.xml.sax.SAXException
-     *            If something goes wrong with parsing the document
-     * @throws java.io.IOException
-     *            If something goes wrong with input
+	 * @throws Exception 
 	 */
 	@Test(description = "OGC 14-005r5, A.1.2")
-	public void validateConformanceClassesRelatedToIndoorGMLModules() throws SAXException, IOException{
+	public void validateConformanceClassesRelatedToIndoorGMLModules() throws Exception{
 
 		
+		StreamSource[] schemaDocuments = getStreamSourceArray(indoorGMLFile);
 		
-		StreamSource[] schemaDocuments = new StreamSource[1];
-		schemaDocuments[0] = new StreamSource(
-				new URL("http://schemas.opengis.net/indoorgml/1.0/indoorgmlnavi.xsd").openStream());
 		
 		Source instanceDocument = new StreamSource(indoorGMLFile.openStream());
 
@@ -163,11 +160,6 @@ public class Capability1Tests extends CommonFixture {
 			v.validate(instanceDocument);
 			schemaValid = true;
 	
-		} catch (IllegalArgumentException iae) {
-			
-			schemaValid = false;
-			validationErrorMessage.append(". "+ iae.getMessage()+"\n");
-
 		} catch (Exception ee) {
 	
 			schemaValid = false;
@@ -233,4 +225,30 @@ public class Capability1Tests extends CommonFixture {
 		
 	}	
 
+	
+	/**
+	 * Requirement 4 - Every instance of InterLayerConnection shall connect two State instances, each of which belongs to different space layers.
+	 */
+	
+	@Test(description = "OGC 14-005r5, A.1.3 - Requirement 4")
+	public void verifySpatialGeometryObjectsRequirement4() {
+		
+	
+		
+		boolean passesRequirement4Checks = true;
+		
+		CoreRequirementChecker rc = new CoreRequirementChecker();
+		try {
+			passesRequirement4Checks = rc.checkRequirement4(indoorGMLFile);
+			
+		} catch (Exception e) {
+			passesRequirement4Checks = false;
+			e.printStackTrace();
+		}
+		Assert.assertTrue(passesRequirement4Checks,"Failed Requirement 4 check that every instance of InterLayerConnection shall connect two State instances, each of which belongs to different space layers.");
+		
+	}	
+	
+
+	
 }

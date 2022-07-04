@@ -3,6 +3,7 @@ package org.opengis.cite.indoorgml10.annexa1;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,6 +17,8 @@ import javax.xml.validation.SchemaFactory;
 import org.apache.xerces.dom.DeferredElementNSImpl;
 import org.opengis.cite.indoorgml10.CellSpace;
 import org.opengis.cite.indoorgml10.CellSpacePairing;
+import org.opengis.cite.indoorgml10.model.SpaceLayer;
+import org.opengis.cite.indoorgml10.model.State;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
@@ -169,5 +172,97 @@ public class CoreRequirementChecker {
 		return foundVerticalOverlaps;
 	}
 
+	public boolean checkRequirement4(URL fileURL) throws Exception {
+		
+		ArrayList<SpaceLayer> spaceLayers = new ArrayList<SpaceLayer>();
 
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(fileURL.openStream());		
+		document.getDocumentElement().normalize();
+		Element root = document.getDocumentElement();
+
+		boolean result = true; //pass unless we fail Requirement 4 checks
+
+		NodeList spaceLayerList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/core",
+				"SpaceLayer");
+		
+		for (int a = 0; a < spaceLayerList.getLength(); a++) {
+			SpaceLayer spaceLayerInstance = new SpaceLayer();
+			DeferredElementNSImpl spaceLayer = (DeferredElementNSImpl) spaceLayerList.item(a);
+			spaceLayerInstance.setGmlid(spaceLayer.getAttributeNS("http://www.opengis.net/gml/3.2", "id"));
+			
+			NodeList nodesList = spaceLayer.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/core",	"nodes");
+			for (int b = 0; b < nodesList.getLength(); b++) {
+				DeferredElementNSImpl node = (DeferredElementNSImpl) nodesList.item(b);
+				NodeList stateMemberList = node.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/core",
+						"stateMember");
+				for (int c = 0; c < stateMemberList.getLength(); c++) {
+					DeferredElementNSImpl stateMember = (DeferredElementNSImpl) stateMemberList.item(c);
+					NodeList stateMemberChildNodesList = stateMember.getChildNodes();
+					for(int d=0; d<stateMemberChildNodesList.getLength(); d++) {
+						if(stateMemberChildNodesList.item(d).getClass().toString().endsWith("org.apache.xerces.dom.DeferredElementNSImpl")) {
+							DeferredElementNSImpl state = (DeferredElementNSImpl) stateMemberChildNodesList.item(d);
+							
+							State stateInstance = new State(state.getAttributeNS("http://www.opengis.net/gml/3.2", "id"));														
+							spaceLayerInstance.stateList.add(stateInstance);
+						}
+					}
+				}
+				
+
+			}
+			spaceLayers.add(spaceLayerInstance);
+		}
+		
+		///=============
+		
+		NodeList interLayerConnectionList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/core",
+				"InterLayerConnection");
+		for (int f = 0; f < interLayerConnectionList.getLength(); f++) {
+			DeferredElementNSImpl interLayerConnection = (DeferredElementNSImpl) interLayerConnectionList.item(f);
+			NodeList interConnectsList = interLayerConnection.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/core",	"interConnects");
+			if(interConnectsList.getLength()!=2) {
+				result = false;
+				throw new Exception("Requirement 4: Every instance of InterLayerConnection shall connect two State instances, each of which belongs to different space layers.");
+			}
+		
+			String spaceLayerContainingInterConnects1 = null;
+			DeferredElementNSImpl interConnects1 = (DeferredElementNSImpl) interConnectsList.item(0);
+			for(int sl = 0; sl< spaceLayers.size(); sl++) {
+				if(spaceLayers.get(sl).hasState(interConnects1.getAttributeNS("http://www.w3.org/1999/xlink", "href"))) {
+					spaceLayerContainingInterConnects1 = spaceLayers.get(sl).getGmlid();
+				}
+			}
+				
+			String spaceLayerContainingInterConnects2 = null;
+			DeferredElementNSImpl interConnects2 = (DeferredElementNSImpl) interConnectsList.item(1);
+			for(int sl = 0; sl< spaceLayers.size(); sl++) {
+				if(spaceLayers.get(sl).hasState(interConnects2.getAttributeNS("http://www.w3.org/1999/xlink", "href"))) {
+					spaceLayerContainingInterConnects2 = spaceLayers.get(sl).getGmlid();
+				}
+			}			
+			
+			if(spaceLayerContainingInterConnects1.equals(spaceLayerContainingInterConnects2)) result = false;
+		}
+
+		return result;
+
+	}
+
+	public static void main(String[]a)
+	{
+		CoreRequirementChecker crc = new CoreRequirementChecker();
+		try {
+			crc.checkRequirement4(new URL("file:///Users/gobehobona/Documents/GitHub/ets-indoorgml10/src/test/resources/FJK-Haus_IndoorGML_withEXR-corrected_1_0_3.gml"));
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
+	
 }
