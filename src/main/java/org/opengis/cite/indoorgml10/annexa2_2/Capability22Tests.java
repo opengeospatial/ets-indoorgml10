@@ -133,13 +133,27 @@ public class Capability22Tests extends CommonFixture {
      */     
     @Test(description = "OGC 14-005r5, A.2.2.1 - Requirement 6", dependsOnMethods = "verifyIndoorGMLIndoorNavigationMandatoryConformaceRequirements")
     public void verifyIndoorGMLIndoorNavigationMandatoryConformaceRequirement6() throws Exception{
+    	    	
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(indoorGMLFile.openStream());		
+		document.getDocumentElement().normalize();
+		Element root = document.getDocumentElement();
+		NodeList connectionSpaceList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/navigation",
+		    "ConnectionSpace");		
+		NodeList anchorSpaceList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/navigation",
+		    "AnchorSpace");	    	
+		NodeList connectionBoundaryList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/navigation",
+				"ConnectionBoundary");		
+		NodeList anchorBoundaryList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/navigation",
+				"AnchorBoundary");			
     	
-    	if(skipIncompleteTests) throw new SkipException("Test not yet implemented.");
-    	
-    	NavigationRequirementChecker checker = new NavigationRequirementChecker();
-        boolean passesRequirement6 = checker.checkRequirement6(indoorGMLFile);        
-        Assert.assertTrue(passesRequirement6, ErrorMessageKeys.THICK_DOOR_MODEL_EITHER_CONNECTIONSPACE_OR_ANCHORSPACE);  
-          	
+    
+		if(connectionSpaceList.getLength()>0 || anchorSpaceList.getLength()>0) { //we assert that if file contains thick doors, there are no thin doors
+			Assert.assertTrue(connectionBoundaryList.getLength()==0 && anchorBoundaryList.getLength()==0, ErrorMessageKeys.THICK_DOOR_MODEL_EITHER_CONNECTIONSPACE_OR_ANCHORSPACE); 
+		}
+		  	
     }
     /**
      * Verify that the IndoorGML instance document follows the IndoorGML Indoor Navigation module’s rules for 
@@ -154,13 +168,25 @@ public class Capability22Tests extends CommonFixture {
     @Test(description = "OGC 14-005r5, A.2.2.1 - Requirement 7", dependsOnMethods = "verifyIndoorGMLIndoorNavigationMandatoryConformaceRequirements")
     public void verifyIndoorGMLIndoorNavigationMandatoryConformaceRequirement7() throws Exception{
     	
-    	if(skipIncompleteTests) throw new SkipException("Test not yet implemented.");
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(indoorGMLFile.openStream());		
+		document.getDocumentElement().normalize();
+		Element root = document.getDocumentElement();
+		NodeList connectionSpaceList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/navigation",
+		    "ConnectionSpace");		
+		NodeList anchorSpaceList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/navigation",
+		    "AnchorSpace");	    	
+		NodeList connectionBoundaryList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/navigation",
+				"ConnectionBoundary");		
+		NodeList anchorBoundaryList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/navigation",
+				"AnchorBoundary");			
     	
-    	NavigationRequirementChecker checker = new NavigationRequirementChecker();        
-        boolean passesRequirement7 = checker.checkRequirement7(indoorGMLFile);        
-        if(passesRequirement7==false) {
-            Assert.assertTrue(passesRequirement7, ErrorMessageKeys.THIN_DOOR_MODEL_EITHER_CONNECTIONBOUNDARY_OR_ANCHORBOUNDARY);  
-         }      	
+    
+		if(connectionBoundaryList.getLength()>0 || anchorBoundaryList.getLength()>0) { //we assert that if file contains thin doors, there are no thick doors
+			Assert.assertTrue(connectionSpaceList.getLength()==0 && anchorSpaceList.getLength()==0, ErrorMessageKeys.THIN_DOOR_MODEL_EITHER_CONNECTIONBOUNDARY_OR_ANCHORBOUNDARY); 
+		}    	
     }
     /**
      * Verify that the IndoorGML instance document follows the IndoorGML Indoor Navigation module’s rules for 

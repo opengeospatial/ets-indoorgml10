@@ -22,8 +22,8 @@ public class ErrorMessageKeys {
     public static final String MISSING_CORRECT_ROOT_ELEMENT = ". The root element must be {http://www.opengis.net/indoorgml/1.0/core}IndoorFeatures";
     public static final String MISSING_CONTENT_IN_INDOORFEATURES_ELEMENT = ". The IndoorFeatures element is an aggregated element with PrimalSpaceFeatures and MultiLayeredGraph. It must have at least one of either primalSpaceFeatures or multiLayeredGraph child elements";
     public static final String NO_NAVIGATION_MODULE_ELEMENTS_FOUND = ". The document must satisfy the rules of the IndoorGML Indoor Navigation module described in clause 9. No Navigation Module elements were found in the document.";
-    public static final String THICK_AND_THIN_DOOR_MODELS_FOUND = ". Thick door model and thin door models shall not be defined in a same IndoorGML encoding.";
-    public static final String THICK_DOOR_MODEL_EITHER_CONNECTIONSPACE_OR_ANCHORSPACE = ". Every thick door shall be encoded as an instance of either ConnectionSpace or AnchorSpace.";
-    public static final String THIN_DOOR_MODEL_EITHER_CONNECTIONBOUNDARY_OR_ANCHORBOUNDARY = ". Every thin door shall be encoded as an instance of either ConnectionBoundary or AnchorBoundary.";
+    public static final String THICK_AND_THIN_DOOR_MODELS_FOUND = ". Failed Requirement 5. Thick door model and thin door models shall not be defined in a same IndoorGML encoding.";
+    public static final String THICK_DOOR_MODEL_EITHER_CONNECTIONSPACE_OR_ANCHORSPACE = "Failed Requirement 6. Every thick door shall be encoded as an instance of either ConnectionSpace or AnchorSpace.";
+    public static final String THIN_DOOR_MODEL_EITHER_CONNECTIONBOUNDARY_OR_ANCHORBOUNDARY = ". Failed Requirement 7. Every thin door shall be encoded as an instance of either ConnectionBoundary or AnchorBoundary.";
     
 }

@@ -1,12 +1,21 @@
 package org.opengis.cite.indoorgml10.annexa2_2;
 
+import java.io.IOException;
 import java.net.URL;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.stream.XMLEventReader;
 import javax.xml.stream.XMLInputFactory;
 import javax.xml.stream.XMLStreamConstants;
+import javax.xml.stream.XMLStreamException;
 import javax.xml.stream.events.StartElement;
 import javax.xml.stream.events.XMLEvent;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 public class NavigationRequirementChecker {
 	/*
@@ -19,7 +28,7 @@ public class NavigationRequirementChecker {
   	boolean thinDoorModelDetected = false;
     	
     	String[] thickDoorModelElementNames = {
-    			"AnchorSpaceType",
+    			"AnchorSpace",
     			"ConnectionSpace"};
     	
     	String[] thinDoorModelElementNames = {
@@ -63,17 +72,50 @@ public class NavigationRequirementChecker {
 	/*
 	 * Requirement 6: Every thick door shall be encoded as an instance of either ConnectionSpace or AnchorSpace.
 	 */
-	public boolean checkRequirement6(URL indoorGMLFile){
+	public boolean checkRequirement6(URL indoorGMLFile) throws Exception{
+
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(indoorGMLFile.openStream());		
+		document.getDocumentElement().normalize();
+		Element root = document.getDocumentElement();
+
 	
-		return false;
+
+		NodeList connectionBoundaryList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/navigation",
+				"ConnectionBoundary");		
+		
+		NodeList anchorBoundaryList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/navigation",
+				"AnchorBoundary");			
+		
+		if(connectionBoundaryList.getLength()>0 || anchorBoundaryList.getLength()>0) return false; //a thick door was found encoded as an instance of either ConnectionBoundary or AnchorBoundary
+		
+			return true;
 	}
 	
 	/*
 	 * Requirement 7: every thin door shall be encoded as an instance of either ConnectionBoundary or AnchorBoundary.
 	 */	
-	public boolean checkRequirement7(URL indoorGMLFile){
+	public boolean checkRequirement7(URL indoorGMLFile) throws Exception{
+		DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+		factory.setNamespaceAware(true);
+		DocumentBuilder builder = factory.newDocumentBuilder();
+		Document document = builder.parse(indoorGMLFile.openStream());		
+		document.getDocumentElement().normalize();
+		Element root = document.getDocumentElement();
+
+
+
+		NodeList connectionSpaceList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/navigation",
+		    "ConnectionSpace");		
+
+		NodeList anchorSpaceList = document.getElementsByTagNameNS("http://www.opengis.net/indoorgml/1.0/navigation",
+		    "AnchorSpace");			
+
+		if(connectionSpaceList.getLength()>0 || anchorSpaceList.getLength()>0) return false; //a thin door was found encoded as an instance of either ConnectionSpace or AnchorSpace
 		
-		return false;
+		return true;
 	}	
 	
 }
