@@ -48,10 +48,13 @@ The general structure of the test suite is shown in Table 1.
 |Test classes
 
 |Annex A.1 Test Cases for mandatory conformance requirements
-|org.opengis.cite.indoorgml10.level1.*
+|org.opengis.cite.indoorgml10.annexa1.*
 
-|Annex A.2 Conformance classes related to IndoorGML Modules
-|org.opengis.cite.indoorgml10.level2.*
+|Annex A.2.1 Conformance classes related to IndoorGML Modules - Core Module
+|org.opengis.cite.indoorgml10.annexa2_1.*
+
+|Annex A.2.2 Conformance classes related to IndoorGML Modules - Navigation Module
+|org.opengis.cite.indoorgml10.annexa2_2.*
 
 |===
 
@@ -77,10 +80,5 @@ The _Obligation_ descriptor can have the following values: M (mandatory), O (opt
 |URI
 |M
 |A URI that refers to the implementation under test or metadata about it. Ampersand ('&amp;') characters must be percent-encoded as '%26'.
-
-|ics
-|A comma-separated list of string values.
-|O
-|An implementation conformance statement that indicates which conformance classes or options are supported.
 
 |===
