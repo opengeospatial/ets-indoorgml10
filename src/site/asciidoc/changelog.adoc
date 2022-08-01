@@ -2,6 +2,9 @@
 
 == 0.1 (2022-08-01)
 
-- https://github.com/opengeospatial/ets-indoorgml10/pull/9[#9]: Fixes for Issues 7 and 8
-- https://github.com/opengeospatial/ets-indoorgml10/pull/3[#3]: Updates to Requirement Checker
-- https://github.com/opengeospatial/ets-indoorgml10/pull/2[#2]: Implemented OGC 14-005r5, A.1.1 and OGC 14-005r5, A.1.3 - Req 1 & 2
+- https://github.com/opengeospatial/ets-indoorgml10/issues/8[#8]: Implement Tests for Conformance classes related to IndoorGML Modules (Annex A.2)
+- https://github.com/opengeospatial/ets-indoorgml10/issues/7[#7]: Implement Tests for mandatory conformance requirements (Annex A.1)
+- https://github.com/opengeospatial/ets-indoorgml10/issues/6[#6]: Implement test for Requirement 4
+- https://github.com/opengeospatial/ets-indoorgml10/issues/5[#5]: Implement test for Requirement 3
+- https://github.com/opengeospatial/ets-indoorgml10/issues/1[#1]: Add conformance class configuration into the ets-indoorgml10 test
+
