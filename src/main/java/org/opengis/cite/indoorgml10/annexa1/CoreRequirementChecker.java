@@ -251,18 +251,5 @@ public class CoreRequirementChecker {
 
 	}
 
-	public static void main(String[]a)
-	{
-		CoreRequirementChecker crc = new CoreRequirementChecker();
-		try {
-			crc.checkRequirement4(new URL("file:///Users/gobehobona/Documents/GitHub/ets-indoorgml10/src/test/resources/FJK-Haus_IndoorGML_withEXR-corrected_1_0_3.gml"));
-		} catch (MalformedURLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
 	
 }
