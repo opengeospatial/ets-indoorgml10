@@ -36,7 +36,7 @@ import org.xml.sax.SAXException;
 /**
  * Includes various tests of Annex A.2.2.
  */
-public class Capability22Tests extends CommonFixture {
+public class AnnexA2Dot2Tests extends CommonFixture {
 
 	boolean skipIncompleteTests = true;
 

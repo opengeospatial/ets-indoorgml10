@@ -38,7 +38,7 @@ import javax.xml.validation.Validator;
 /**
  * Includes various tests of Annex A.1.
  */
-public class Capability1Tests extends CommonFixture {
+public class AnnexA1Tests extends CommonFixture {
 
 	private Document testSubject;
 	

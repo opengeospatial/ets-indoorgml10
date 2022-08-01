@@ -36,7 +36,7 @@ import org.xml.sax.SAXException;
 /**
  * Includes various tests of Annex A.2.1.
  */
-public class Capability21Tests extends CommonFixture {
+public class AnnexA2Dot1Tests extends CommonFixture {
 
 	
 
