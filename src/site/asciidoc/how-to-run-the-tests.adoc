@@ -2,7 +2,6 @@
 
 The options for running the test suite are summarized below.
 
-As entry point the Landing Page of the IndoorGML 1.0 is expected.
 
 === 1. Integrated development environment (IDE)
 
