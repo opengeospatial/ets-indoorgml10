@@ -9,7 +9,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.opengis.cite</groupId>
   <artifactId>ets-indoorgml10</artifactId>
-  <version>0.1</version>
+  <version>0.2-SNAPSHOT</version>
   <packaging>jar</packaging>
 
   <name>IndoorGML 1.0 Conformance Test Suite</name>
@@ -30,7 +30,7 @@
     <connection>scm:git:https://github.com/opengeospatial/ets-indoorgml10.git</connection>
     <developerConnection>scm:git:git@github.com:opengeospatial/ets-indoorgml10.git</developerConnection>
     <url>https://github.com/opengeospatial/ets-indoorgml10</url>
-    <tag>0.1</tag>
+    <tag>HEAD</tag>
   </scm>
   <issueManagement>
     <system>GitHub Issue Tracker</system>
