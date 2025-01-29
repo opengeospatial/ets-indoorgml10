@@ -5,6 +5,7 @@ import java.util.logging.Level;
 import org.opengis.cite.indoorgml10.SuiteAttribute;
 import org.opengis.cite.indoorgml10.util.TestSuiteLogger;
 import org.testng.ITestContext;
+import org.testng.Reporter;
 import org.testng.annotations.BeforeSuite;
 import org.w3c.dom.Document;
 
@@ -19,7 +20,8 @@ public class SuitePreconditions {
 	 * and that the implementation it describes is available.
 	 */
 	@BeforeSuite
-	public void verifyTestSubject(ITestContext testContext) {
+	public void verifyTestSubject() {
+		ITestContext testContext = Reporter.getCurrentTestResult().getTestContext();
 		Object sutObj = testContext.getSuite().getAttribute(SuiteAttribute.TEST_SUBJECT.getName());
 		if (null != sutObj && Document.class.isInstance(sutObj)) {
 			// TODO: Verify test subject
