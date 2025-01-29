@@ -1,18 +1,16 @@
 package org.opengis.cite.indoorgml10;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientRequest;
-import com.sun.jersey.api.client.ClientResponse;
 import java.net.URI;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Map;
-import javax.ws.rs.core.MediaType;
+
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.stream.StreamSource;
 
+import org.glassfish.jersey.client.ClientRequest;
+import org.glassfish.jersey.client.ClientResponse;
 import org.opengis.cite.indoorgml10.util.ClientUtils;
 import org.testng.ITestContext;
 import org.testng.SkipException;
@@ -21,6 +19,10 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.xml.XmlSuite;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+
+import jakarta.ws.rs.client.Client;
+import jakarta.ws.rs.core.MediaType;
+import jakarta.ws.rs.core.Response;
 
 /**
  * A supporting base class that sets up a common test fixture. These
@@ -43,7 +45,7 @@ public class CommonFixture {
     /**
      * An HTTP response message.
      */
-    protected ClientResponse response;
+    protected Response response;
 
     
 	protected URL indoorGMLFile;
@@ -110,28 +112,9 @@ public class CommonFixture {
      * ClientUtils#getResponseEntityAsDocument(com.sun.jersey.api.client.ClientResponse,
      * java.lang.String)
      */
-    public Document getResponseEntityAsDocument(ClientResponse response,
+    public Document getResponseEntityAsDocument(Response response,
             String targetURI) {
         return ClientUtils.getResponseEntityAsDocument(response, targetURI);
-    }
-
-    /**
-     * Builds an HTTP request message that uses the GET method. This convenience
-     * method wraps a static method call to facilitate unit testing (Mockito
-     * workaround).
-     *
-     * @param endpoint A URI indicating the target resource.
-     * @param qryParams A Map containing query parameters (may be null);
-     * @param mediaTypes A list of acceptable media types; if not specified,
-     * generic XML ("application/xml") is preferred.
-     * @return A ClientRequest object.
-     *
-     * @see ClientUtils#buildGetRequest(java.net.URI, java.util.Map,
-     * javax.ws.rs.core.MediaType...)
-     */
-    public ClientRequest buildGetRequest(URI endpoint,
-            Map<String, String> qryParams, MediaType... mediaTypes) {
-        return ClientUtils.buildGetRequest(endpoint, qryParams, mediaTypes);
     }
 
     public StreamSource[] getStreamSourceArray(URL indoorGMLFile) throws Exception

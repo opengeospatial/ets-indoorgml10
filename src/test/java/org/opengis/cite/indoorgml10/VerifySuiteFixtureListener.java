@@ -8,12 +8,13 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import org.mockito.Matchers;
+import org.mockito.ArgumentMatchers;
 import org.testng.ISuite;
 import org.testng.xml.XmlSuite;
 import org.w3c.dom.Document;
@@ -62,8 +63,8 @@ public class VerifySuiteFixtureListener {
         SuiteFixtureListener iut = new SuiteFixtureListener();
         iut.onStart(suite);
         verify(suite).setAttribute(
-                Matchers.eq(SuiteAttribute.TEST_SUBJECT.getName()),
-                Matchers.isA(Document.class));
+                ArgumentMatchers.eq(SuiteAttribute.TEST_SUBJECT.getName()),
+                ArgumentMatchers.isA(Document.class));
     }
 
 }
