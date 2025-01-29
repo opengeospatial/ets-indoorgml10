@@ -4,7 +4,6 @@ package org.opengis.cite.indoorgml10;
  * <p>
  * CellSpacePairing class.
  * </p>
- *
  */
 public class CellSpacePairing {
 

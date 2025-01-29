@@ -18,7 +18,6 @@ import org.w3c.dom.NodeList;
  * <p>
  * NavigationRequirementChecker class.
  * </p>
- *
  */
 public class NavigationRequirementChecker {
 

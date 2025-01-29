@@ -6,7 +6,6 @@ import java.util.ArrayList;
  * <p>
  * SpaceLayer class.
  * </p>
- *
  */
 public class SpaceLayer {
 

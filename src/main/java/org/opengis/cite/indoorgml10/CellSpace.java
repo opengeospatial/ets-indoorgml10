@@ -6,7 +6,6 @@ import org.locationtech.jts.geom.LinearRing;
  * <p>
  * CellSpace class.
  * </p>
- *
  */
 public class CellSpace {
 

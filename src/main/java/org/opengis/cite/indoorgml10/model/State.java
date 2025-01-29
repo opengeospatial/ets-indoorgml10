@@ -4,7 +4,6 @@ package org.opengis.cite.indoorgml10.model;
  * <p>
  * State class.
  * </p>
- *
  */
 public class State {
 

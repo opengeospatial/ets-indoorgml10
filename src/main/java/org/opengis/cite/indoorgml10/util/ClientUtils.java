@@ -58,53 +58,6 @@ public class ClientUtils {
 	 * @return A Source to read the entity from; its system identifier is set using the
 	 * given targetURI value (this may be used to resolve any relative URIs found in the
 	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @param response A representation of an HTTP response message.
-	 * @param targetURI The target URI from which the entity was retrieved (may be null).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
-	 * @return A Source to read the entity from; its system identifier is set using the
-	 * given targetURI value (this may be used to resolve any relative URIs found in the
-	 * source).
 	 */
 	public static Source getResponseEntityAsSource(Response response, String targetURI) {
 		Source source = response.readEntity(DOMSource.class);

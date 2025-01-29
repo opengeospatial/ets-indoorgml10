@@ -21,7 +21,6 @@ import org.w3c.dom.NodeList;
  * <p>
  * CoreRequirementChecker class.
  * </p>
- *
  */
 public class CoreRequirementChecker {
 
