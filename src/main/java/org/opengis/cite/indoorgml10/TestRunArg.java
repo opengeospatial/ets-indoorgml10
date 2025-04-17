@@ -5,14 +5,16 @@ package org.opengis.cite.indoorgml10;
  */
 public enum TestRunArg {
 
-    /**
-     * An absolute URI that refers to a representation of the test subject or
-     * metadata about it.
-     */
-    IUT;
+	/**
+	 * An absolute URI that refers to a representation of the test subject or metadata
+	 * about it.
+	 */
+	IUT;
 
-    @Override
-    public String toString() {
-        return name().toLowerCase();
-    }
+	/** {@inheritDoc} */
+	@Override
+	public String toString() {
+		return name().toLowerCase();
+	}
+
 }
